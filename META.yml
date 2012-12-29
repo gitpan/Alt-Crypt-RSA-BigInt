@@ -35,4 +35,4 @@ requires:
   Sort::Versions: 0
   Tie::EncryptedHash: 0
   perl: 5.008
-version: 0.01
+version: 0.02
