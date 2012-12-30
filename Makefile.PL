@@ -39,13 +39,13 @@ WriteMakefile1(
     LICENSE      => 'perl',
     AUTHOR       => 'Dana A Jacobsen <dana@acm.org>',
 
-    #BUILD_REQUIRES=>{
-    #                  'Test::More'       => '0.45',
-    #                },
+    BUILD_REQUIRES=>{
+                      'Test::More'       => '0.45',
+                    },
     PREREQ_PM    => {
                       'Bytes::Random::Secure'  => '0.12',
                       'Math::Prime::Util'      => '0.17',
-                      'Crypt::CBC'             => 0,
+                      'Crypt::CBC'             => '2.17',
                       'Crypt::Blowfish'        => 0,
                       'Data::Dumper'           => 0,
                       'Tie::EncryptedHash'     => 0,
@@ -62,7 +62,14 @@ WriteMakefile1(
     # This should be worked on.  For now, no 5.6.x.
     MIN_PERL_VERSION => 5.008,
     META_MERGE   => {
-                      no_index => { directory => [qw(lib/Crypt)] },
+                      no_index   => { directory => [qw(lib/Crypt)] },
+                      resources  => {
+                         homepage   => 'https://github.com/danaj/Alt-Crypt-RSA-BigInt/tree',
+                         repository => 'git://github.com/danaj/Alt-Crypt-RSA-BigInt.git',
+                       },
+                      recommends => {
+                        'Crypt::RIPEMD160' => 0.05,
+                      },
                     },
 );
 

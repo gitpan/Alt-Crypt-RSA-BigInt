@@ -1,5 +1,33 @@
 Revision history for Perl module Alt::Crypt::RSA::BigInt
 
+0.03 30 December 2012
+
+  - Add tests for SHA384 and SHA512.
+
+  - Add optional support for RIPEMD160.
+
+  - Add more data to meta file, including git repository.
+
+  - All tests converted to Test::More.
+
+  - Rewrite Key/Private/SSH.pm, and add tests.  I don't think it ever worked.
+    Now supports IDEA, DES, DES3, Blowfish, Twofish, CAST5, Rijndael, RC6, and
+    Camelia (only the first 4 are guaranteed -- the others depend on having a
+    module installed).  Multiple alternative modules are allowed for some.
+    This fixes:
+
+     RT 69376  Bug in Crypt::RSA::Key::Private::SSH serialize function
+
+  - FindBin is no longer used.  You'll need to do:
+       perl -Iblib/lib -Iblib/arch ...
+    to get the version in this directory.  'make test' does this for us.
+    use 'prove -l -b' to prove using the local version.
+
+    I think FindBin is great for example files and such, but I don't think
+    it is appropriate in the .pm files or in tests.  If we do use it, it has
+    to be added to the dependency list.
+
+
 0.02 28 December 2012
 
   - Fix a decrypt issue setting keys

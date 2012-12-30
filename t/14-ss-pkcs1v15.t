@@ -1,22 +1,18 @@
-#!/usr/bin/perl -sw
-##
-##
-##
+#!/usr/bin/perl
+use strict;
+use warnings;
+
 ## Copyright (c) 2000, Vipul Ved Prakash.  All rights reserved.
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
-##
-## $Id: 14-ss-pkcs1v15.t,v 1.1 2001/04/06 18:33:31 vipul Exp $ 
 
-use FindBin qw($Bin);
-use lib "$Bin/../lib";
+use Test::More;
 use Crypt::RSA::Key;
 use Crypt::RSA::SS::PKCS1v15;
 use Crypt::RSA::Key::Public;
 use Crypt::RSA::Key::Private;
 
-print "1..10\n";
-my $i = 0;
+plan tests => 14;
 
 my $message =  " Whither should I fly? \
                  I have done no harm. But I remember now \
@@ -25,41 +21,45 @@ my $message =  " Whither should I fly? \
                  Accounted dangerous folly. ";
 
 # my ($pub, $priv) = readkeys();
-my ($pub, $priv) = Crypt::RSA::Key->new->generate  (
-                        Size => 512, 
-                        Identity => 'f', 
-                        Password => 'f', 
-                        Verbosity => 1
-                    );
-    print "\n";
 
-for (qw(MD2 MD5 SHA1 SHA224 SHA256)) { 
-   
-    my $pkcs = new Crypt::RSA::SS::PKCS1v15 ( Digest => $_ );
- 
+# SHA384 and SHA512 require a key length of at least 768.
+# SHA224 amd SJA256 require a key length of at least 512.
+# SHA1, MD5, and MD2 require at least 384.
+my ($pub, $priv) = Crypt::RSA::Key->new->generate  (
+                        Size => 768,
+                        Identity => 'i am i',
+                        Password => 'guess me',
+                    );
+
+foreach my $hash (qw(MD2 MD5 SHA1 SHA224 SHA256 SHA384 SHA512)) {
+
+    my $pkcs = new Crypt::RSA::SS::PKCS1v15 ( Digest => $hash );
+
     my $sig = $pkcs->sign (
                 Message => $message,
                 Key     => $priv,
     ) || die $pkcs->errstr();
 
-    print length($sig) == $pkcs->verifyblock(Key => $priv) ? 
-            "ok " : "not ok " , ++$i , "\n";
+    is( $pkcs->verifyblock(Key => $priv), length($sig), "verifyblock" );
 
     my $verify = $pkcs->verify (
-                   Key => $pub, 
-                   Message => $message, 
-                   Signature => $sig, 
+                   Key => $pub,
+                   Message => $message,
+                   Signature => $sig,
     ) || die $pkcs->errstr;
 
-    print $verify ? "ok" : "not ok"; print " ", ++$i, "\n";
+    ok($verify, "Signed and verified using $hash hash");
 
 }
 
+
+
+# Not used
 sub readkeys {
 
     my $n = "73834345487788514568533774308502691535472856730213458245198623 \
              26913500918212899613538952044531113709736546304347778208211537 \
-             356895300653369009683166191489"; 
+             356895300653369009683166191489";
 
     my $d = "42559776454402653689602825763344464625105789228943555733842995 \
              42606639366881642674904410038192736942200540859365906591454274 \
@@ -72,7 +72,7 @@ sub readkeys {
 
     my $pub  = new Crypt::RSA::Key::Public;
     my $priv = new Crypt::RSA::Key::Private (Identity => 'f', Password => 'b');
-    $pub->n ($n); $pub->e ($e); 
+    $pub->n ($n); $pub->e ($e);
     $priv->n ($n); $priv->d ($d);
     return ($pub, $priv);
 
