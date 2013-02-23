@@ -3,11 +3,13 @@ abstract: 'RSA public-key cryptosystem, using Math::BigInt'
 author:
   - 'Dana A Jacobsen <dana@acm.org>'
 build_requires:
+  Benchmark: 0
+  MIME::Base64: 0
   Test::More: 0.45
 configure_requires:
   ExtUtils::MakeMaker: 0
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921'
+generated_by: 'ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,7 +23,8 @@ no_index:
 recommends:
   Crypt::RIPEMD160: 0.05
 requires:
-  Bytes::Random::Secure: 0.12
+  Bytes::Random::Secure: 0.23
+  Carp: 0
   Class::Loader: 0
   Convert::ASCII::Armour: 0
   Crypt::Blowfish: 0
@@ -31,6 +34,7 @@ requires:
   Digest::MD2: 0
   Digest::MD5: 0
   Digest::SHA: 0
+  Exporter: 0
   Math::BigInt: 1.78
   Math::BigInt::GMP: 0
   Math::Prime::Util: 0.17
@@ -41,4 +45,4 @@ requires:
 resources:
   homepage: https://github.com/danaj/Alt-Crypt-RSA-BigInt/tree
   repository: git://github.com/danaj/Alt-Crypt-RSA-BigInt.git
-version: 0.04
+version: 0.05

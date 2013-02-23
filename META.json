@@ -4,7 +4,7 @@
       "Dana A Jacobsen <dana@acm.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -23,6 +23,8 @@
    "prereqs" : {
       "build" : {
          "requires" : {
+            "Benchmark" : "0",
+            "MIME::Base64" : "0",
             "Test::More" : "0.45"
          }
       },
@@ -36,7 +38,8 @@
             "Crypt::RIPEMD160" : "0.05"
          },
          "requires" : {
-            "Bytes::Random::Secure" : "0.12",
+            "Bytes::Random::Secure" : "0.23",
+            "Carp" : "0",
             "Class::Loader" : "0",
             "Convert::ASCII::Armour" : "0",
             "Crypt::Blowfish" : "0",
@@ -46,6 +49,7 @@
             "Digest::MD2" : "0",
             "Digest::MD5" : "0",
             "Digest::SHA" : "0",
+            "Exporter" : "0",
             "Math::BigInt" : "1.78",
             "Math::BigInt::GMP" : "0",
             "Math::Prime::Util" : "0.17",
@@ -63,5 +67,5 @@
          "url" : "git://github.com/danaj/Alt-Crypt-RSA-BigInt.git"
       }
    },
-   "version" : "0.04"
+   "version" : "0.05"
 }
